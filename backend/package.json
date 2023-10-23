@@ -1,0 +1,20 @@
+{
+  "name": "career-page-backend",
+  "version": "1.0.0",
+  "description": "This is the backend for career page, Here i'll make the api and connect mongoDB  database with it to interact with the frontend.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "Ayush Jha",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mongodb": "^6.2.0",
+    "mongoose": "^7.6.3",
+    "nodemon": "^3.0.1",
+    "react-dev-utils": "^10.0.0"
+  }
+}
