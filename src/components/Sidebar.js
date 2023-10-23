@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ChevronDown, Filter, LayoutGrid, Plus } from "lucide-react";
 import { CardFour } from "./Card";
 import Data from "../utils/Data";
 import { useState, useEffect } from "react";
 import { Minus } from "lucide-react";
+import { FilterContext } from "../context/FilterContext";
 
 export function FilterTwo() {
-  const [isDepartmentOpen, setIsDepartmentOpen] = useState(false);
+  const { isDepartmentOpen, setIsDepartmentOpen } = useContext(FilterContext);
+
+  // const [isDepartmentOpen, setIsDepartmentOpen] = useState(false);
   const [isJobTypeOpen, setIsJobTypeOpen] = useState(false);
   const [isLocationOpen, setIsLocationOpen] = useState(false);
   const [isExperienceLevelOpen, setIsExperienceLevelOpen] = useState(false);
@@ -17,12 +20,13 @@ export function FilterTwo() {
   const [selectedExperienceLevel, setSelectedExperienceLevel] = useState([]);
 
   const jobData = {
-    title: 'IT Support Specialist',
-    shortDescription: 'Provide technical support and assistance to our IT team and employees.',
-    type: 'Full-time',
-    department: 'IT/Technology',
-    location: 'Remote',
-    experienceLevel: 'Entry Level',
+    title: "IT Support Specialist",
+    shortDescription:
+      "Provide technical support and assistance to our IT team and employees.",
+    type: "Full-time",
+    department: "IT/Technology",
+    location: "Remote",
+    experienceLevel: "Entry Level",
   };
 
   const toggleJobType = () => {
@@ -60,36 +64,41 @@ export function FilterTwo() {
         return prevSelectedDepartment.filter((item) => item !== e.target.value);
       }
     });
-  }
+  };
 
-    const handleLocation = (e) => {
-        setSelectedLocation((prevSelectedLocation) => {
-            if (e.target.checked) {
-            return [...prevSelectedLocation, e.target.value];
-            } else {
-            return prevSelectedLocation.filter((item) => item !== e.target.value);
-            }
-        });
-        }
+  const handleLocation = (e) => {
+    setSelectedLocation((prevSelectedLocation) => {
+      if (e.target.checked) {
+        return [...prevSelectedLocation, e.target.value];
+      } else {
+        return prevSelectedLocation.filter((item) => item !== e.target.value);
+      }
+    });
+  };
 
-    const handleExperienceLevel = (e) => {
-        setSelectedExperienceLevel((prevSelectedExperienceLevel) => {
-            if (e.target.checked) {
-            return [...prevSelectedExperienceLevel, e.target.value];
-            } else {
-            return prevSelectedExperienceLevel.filter((item) => item !== e.target.value);
-            }
-        });
-        }
+  const handleExperienceLevel = (e) => {
+    setSelectedExperienceLevel((prevSelectedExperienceLevel) => {
+      if (e.target.checked) {
+        return [...prevSelectedExperienceLevel, e.target.value];
+      } else {
+        return prevSelectedExperienceLevel.filter(
+          (item) => item !== e.target.value,
+        );
+      }
+    });
+  };
 
-    useEffect(() => {
-        console.log(selectedJobType);
-        console.log(selectedDepartment);
-        console.log(selectedLocation);
-        console.log(selectedExperienceLevel);
-    }, [selectedJobType, selectedDepartment, selectedLocation, selectedExperienceLevel]);
-
-  
+  useEffect(() => {
+    console.log(selectedJobType);
+    console.log(selectedDepartment);
+    console.log(selectedLocation);
+    console.log(selectedExperienceLevel);
+  }, [
+    selectedJobType,
+    selectedDepartment,
+    selectedLocation,
+    selectedExperienceLevel,
+  ]);
 
   return (
     <section className="w-full h-full flex flex-col p-4">
@@ -100,8 +109,7 @@ export function FilterTwo() {
           <button
             type="button"
             className="hidden items-center rounded-md px-3 py-2 text-sm font-semibold text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black lg:inline-flex text-2xl"
-            onClick={toggleSort}
-          >
+            onClick={toggleSort}>
             Sort <ChevronDown className="ml-2 h-4 w-4" />
           </button>
           {isSortOpen && (
@@ -112,27 +120,23 @@ export function FilterTwo() {
                     className="py-1"
                     role="menu"
                     aria-orientation="vertical"
-                    aria-labelledby="options-menu"
-                  >
+                    aria-labelledby="options-menu">
                     <a
                       href="#"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                      role="menuitem"
-                    >
+                      role="menuitem">
                       Newest
                     </a>
                     <a
                       href="#"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                      role="menuitem"
-                    >
+                      role="menuitem">
                       Oldest
                     </a>
                     <a
                       href="#"
                       className="block px-4 py-2 text-sm text-gray-700 hover-bg-gray-100 hover:text-gray-900"
-                      role="menuitem"
-                    >
+                      role="menuitem">
                       Most Popular
                     </a>
                   </div>
@@ -148,8 +152,7 @@ export function FilterTwo() {
           <div className="flex items-center justify-between pt-4">
             <h6
               onClick={toggleJobType}
-              className="font-semibold text-2xl cursor-pointer"
-            >
+              className="font-semibold text-2xl cursor-pointer">
               Job Type
             </h6>
             <span className="block cursor-pointer ">
@@ -164,7 +167,12 @@ export function FilterTwo() {
             Data.JobTypes.map((item, index) => (
               <div key={index}>
                 <label>
-                  <input type="checkbox" className="mr-2 ml-6" onChange={handleJobType} value={item} />
+                  <input
+                    type="checkbox"
+                    className="mr-2 ml-6"
+                    onChange={handleJobType}
+                    value={item}
+                  />
                   {item}
                 </label>
               </div>
@@ -173,8 +181,7 @@ export function FilterTwo() {
           <div className="flex items-center justify-between pt-4">
             <h6
               onClick={toggleDepartment}
-              className="font-semibold text-2xl cursor-pointer"
-            >
+              className="font-semibold text-2xl cursor-pointer">
               Department
             </h6>
             <span className="block cursor-pointer">
@@ -189,7 +196,12 @@ export function FilterTwo() {
             Data.Department.map((item, index) => (
               <div key={index}>
                 <label>
-                  <input type="checkbox" className="mr-2 ml-6" value={item} onChange={handleDepartment}/>
+                  <input
+                    type="checkbox"
+                    className="mr-2 ml-6"
+                    value={item}
+                    onChange={handleDepartment}
+                  />
                   {item}
                 </label>
               </div>
@@ -198,8 +210,7 @@ export function FilterTwo() {
           <div className="flex items-center justify-between pt-4">
             <h6
               onClick={toggleLocation}
-              className="font-semibold text-2xl cursor-pointer"
-            >
+              className="font-semibold text-2xl cursor-pointer">
               Location
             </h6>
             <span className="block cursor-pointer ">
@@ -214,7 +225,12 @@ export function FilterTwo() {
             Data.Location.map((item, index) => (
               <div key={index}>
                 <label>
-                  <input type="checkbox" className="mr-2 ml-6" value={item} onChange={handleLocation} />
+                  <input
+                    type="checkbox"
+                    className="mr-2 ml-6"
+                    value={item}
+                    onChange={handleLocation}
+                  />
                   {item}
                 </label>
               </div>
@@ -222,8 +238,7 @@ export function FilterTwo() {
           <div className="flex items-center justify-between pt-4">
             <h6
               onClick={toggleExperienceLevel}
-              className="font-semibold text-2xl cursor-pointer"
-            >
+              className="font-semibold text-2xl cursor-pointer">
               Experience Level
             </h6>
             <span className="block cursor-pointer ">
@@ -238,16 +253,20 @@ export function FilterTwo() {
             Data.ExperienceLevel.map((item, index) => (
               <div key={index}>
                 <label>
-                  <input type="checkbox" className="mr-2 ml-6" onChange={handleExperienceLevel} value={item} />
+                  <input
+                    type="checkbox"
+                    className="mr-2 ml-6"
+                    onChange={handleExperienceLevel}
+                    value={item}
+                  />
                   {item}
                 </label>
               </div>
             ))}
         </div>
         <div>
-        <CardFour jobData={jobData} />
-        
-      </div>
+          <CardFour jobData={jobData} />
+        </div>
       </div>
     </section>
   );
